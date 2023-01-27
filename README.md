@@ -2,7 +2,7 @@
 
 #setup:
 
-'''
+"""
 wget https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-Linux-x86_64.sh
 bash Miniforge3-Linux-x86_64.sh
 Source ~/.bashrc
@@ -27,7 +27,7 @@ singularity pull docker://bitnami/tensorflow-serving [for cpu]
 singularity pull docker://tensorflow/serving:latest-gpu
 //Edit benchmark/models.conf to make base_path: "/project/bii_dsc_community/osmibench/code/osmi-bench/models/small_lstm",
 //open different terminal and ssh
-'''
+"""
 
 To run:
 '''
