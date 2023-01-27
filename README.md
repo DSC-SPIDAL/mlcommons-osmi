@@ -1,6 +1,6 @@
 # mlcommons-osmi
 
-#setup the environment:
+## setup the environment:
 
 ```
 cd /project/bii_dsc_community/
@@ -8,7 +8,7 @@ mkdir -p $user/osmi
 cd $user/osmi
 ```
 
-#get the code
+## get the code //separate out conda and getting code
 
 ```
 git clone _
@@ -40,7 +40,7 @@ singularity pull docker://tensorflow/serving:latest-gpu
 
 for this application there is no separate data
 
-#compile the 
+## compile the 
 
 ```
 Conda activate osmi
