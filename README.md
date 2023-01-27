@@ -2,7 +2,7 @@
 
 #setup:
 
-"""
+```
 wget https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-Linux-x86_64.sh
 bash Miniforge3-Linux-x86_64.sh
 Source ~/.bashrc
@@ -27,10 +27,11 @@ singularity pull docker://bitnami/tensorflow-serving [for cpu]
 singularity pull docker://tensorflow/serving:latest-gpu
 //Edit benchmark/models.conf to make base_path: "/project/bii_dsc_community/osmibench/code/osmi-bench/models/small_lstm",
 //open different terminal and ssh
-"""
+```
 
 To run:
-'''
+
+```
 Conda activate osmi
 singularity shell --nv --home `pwd` tensorflow-serving-gpu_latest.sif
 Nvidia-smi //to see if you can use gpus (on node)
@@ -40,7 +41,7 @@ Cat log //to check its working
 lsof -i :8500 // to make sure it an accept incoming directions, doesn’t work on ijob so ignore
 //Edit tfs_grpc_client.py to make sure all the models use float32
 python tfs_grpc_client.py -m [model, e.g. small_lstm] -b [batch size, e.g. 32] -n [# of batches, e.g. 10]  localhost:8500
-'''
+```
 F
 
 //simpler way
