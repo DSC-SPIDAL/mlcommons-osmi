@@ -1,8 +1,17 @@
 # mlcommons-osmi
 
-#setup:
+#setup the environment:
 
 ```
+cd /project/bii_dsc_community/
+mkdir -p $user/osmi
+cd $user/osmi
+```
+
+#get the code
+
+```
+git clone _
 wget https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-Linux-x86_64.sh
 bash Miniforge3-Linux-x86_64.sh
 Source ~/.bashrc
@@ -29,7 +38,9 @@ singularity pull docker://tensorflow/serving:latest-gpu
 //open different terminal and ssh
 ```
 
-To run:
+for this application there is no separate data
+
+#compile the 
 
 ```
 Conda activate osmi
@@ -42,7 +53,6 @@ lsof -i :8500 // to make sure it an accept incoming directions, doesn’t work o
 //Edit tfs_grpc_client.py to make sure all the models use float32
 python tfs_grpc_client.py -m [model, e.g. small_lstm] -b [batch size, e.g. 32] -n [# of batches, e.g. 10]  localhost:8500
 ```
-F
 
 //simpler way
 ijob -c 1 -A bii_dsc_community -p standard --time=1-00:00:00 --partition=bii-gpu --gres=gpu
