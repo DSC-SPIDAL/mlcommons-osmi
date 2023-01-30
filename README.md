@@ -1,6 +1,6 @@
 # mlcommons-osmi
 
-## setup the environment:
+## set up the environment:
 
 ```
 cd /project/bii_dsc_community/
@@ -8,44 +8,53 @@ mkdir -p $user/osmi
 cd $user/osmi
 ```
 
-## get the code //separate out conda and getting code
+## set up virtual environment:
 
 ```
-git clone _
 wget https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-Linux-x86_64.sh
 bash Miniforge3-Linux-x86_64.sh
 Source ~/.bashrc
 conda create -n osmi python=3.8
 Conda activate osmi
-//to run interactive job on compute node (makes writing to files a lot faster)
+```
+
+## get the code
+
+```
+git clone _
+```
+
+## compile models
+
+```
+# Run interactive job on compute node (makes writing to files a lot faster)
 ijob -c 1 -A bii_dsc_community -p standard --time=1-00:00:00 
-Cd /project/bii_dsc_community/osmibench/code/osmibench/models
-//Edit requirement grpc to grpcio
+cd /project/bii_dsc_community/osmibench/code/osmibench/models
+# Edit requirement grpc to grpcio
 //there are sometimes problems with installing libraries so try conda if pip doesn’t work
-Pip install –user  -r ../requirements.py or Conda install –file ../requirements.py
-Conda install grpcio
-//Renamed .local to avoid the error
-Pip install –user tensorflow requests tqdm
+pip install –user  -r ../requirements.py 
+conda install –file ../requirements.py
+conda install grpcio
+# At this point I hat to rename .local to avoid an error
+pip install –user tensorflow requests tqdm
 pip install tensorflow-serving-api
-Python train.py small_lstm
-//results are in small_lstm/1
+python train.py small_lstm
+# Results are in small_lstm/1
 python train.py medium_cnn
-Python train.py large_tcnn
-Cd .. 
+python train.py large_tcnn
+cd .. 
 singularity pull docker://bitnami/tensorflow-serving [for cpu]
 singularity pull docker://tensorflow/serving:latest-gpu
-//Edit benchmark/models.conf to make base_path: "/project/bii_dsc_community/osmibench/code/osmi-bench/models/small_lstm",
-//open different terminal and ssh
+//Edit benchmark/models.conf to make each base_path correspond to the proper directory e.g. "/project/bii_dsc_community/osmibench/code/osmi-bench/models/small_lstm",
 ```
 
 for this application there is no separate data
 
-## compile the 
+## run the client-side tests
 
 ```
-Conda activate osmi
 singularity shell --nv --home `pwd` tensorflow-serving-gpu_latest.sif
-Nvidia-smi //to see if you can use gpus (on node)
+nvidia-smi #to see if you can use gpus (on node)
 Cd benchmark
 tensorflow_model_server --port=8500 --rest_api_port=0 --model_config_file=models.conf >& log &
 Cat log //to check its working
