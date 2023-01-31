@@ -2,6 +2,37 @@
 
 Authors: Nate, Gregor von Laszewski
 
+
+## Running OSMI Bench on a local machine
+
+
+## Get the code
+
+Tho get the code we clone a gitlab instance that is hosted at Oakridge National Laboratory (<https://code.ornl.gov/whb/osmi-bench>). 
+To get the code, please execute
+
+```
+cd /project/bii_dsc_community/$USER/osmi
+git clone https://code.ornl.gov/whb/osmi-bench.git
+cd osmi-bench
+```
+## Create python virtual environment
+
+```
+python -m venv ~/OSMI
+source ~/OSMI/bin/activate
+pip install -r requirements.txt
+```
+
+## Now run a small OSMI model benchmark
+
+```
+time python train.py small_lstm
+time python train.py medium_cnn
+time python train.py large_tcnn
+```
+
+
 ## Running OSMI benchmark on rivanna
 
 To run the OSMI benchmark, you will first need to generate the project directory with the code. We assume you are in the group `bii_dsc_community`. THis allows you access to the directory 
