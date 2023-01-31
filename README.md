@@ -70,13 +70,15 @@ To run the OSMI benchmark, you will first need to generate the project directory
 
 As well as the slurm partitions `gpu` and `bii_gpu`
 
-## Set up a project directory
+## Set up a project directory and get the code
 
 Firts you need to create a directory under your username in the project directory. We recommend to use your username. Follow these setps: 
 
 ```
 mkdir -p /project/bii_dsc_community/$USER/osmi
 cd /project/bii_dsc_community/$USER/osmi
+git clone git@github.com:DSC-SPIDAL/mlcommons-osmi.git
+git clone https://code.ornl.gov/whb/osmi-bench.git
 ```
 
 ## Set up Python via Miniforge and Conda
@@ -84,12 +86,27 @@ cd /project/bii_dsc_community/$USER/osmi
 Next we recommend that you set up python. Although Conda is not our favorite development environment, we use conda here out of convenience. In future we will also document here how to set OSMI up with an environment from python.org useing vanillla python installs.
 
 ```
-wget https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-Linux-x86_64.sh
-bash Miniforge3-Linux-x86_64.sh
-Source ~/.bashrc
-conda create -n osmi python=3.8
-Conda activate osmi
+rivanna> wget https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-Linux-x86_64.sh
+rivanna> bash Miniforge3-Linux-x86_64.sh
+rivanna> source ~/.bashrc
+rivanna> conda create -n osmi python=3.8
+rivanna> conda activate osmi
 ```
+
+gregors version of this
+
+```
+rivanna> module load anaconda
+rivanna> conda -V    # 4.9.2
+rivanna> anaconda -V # 1.7.2
+```
+
+```
+rivanna> conda create -n OSMI python=3.8
+rivanna> conda activate OSMI
+```
+
+DO NOT USE CONDA INIT!!!!!
 
 ## Get the code
 
@@ -98,7 +115,6 @@ To get the code, please execute
 
 ```
 cd /project/bii_dsc_community/$USER/osmi
-git clone https://code.ornl.gov/whb/osmi-bench.git
 cd osmi-bench
 ```
 
@@ -124,13 +140,13 @@ TODO: This is inprecise as its not discussed which file system ... Also you can 
 First, obtain an interactive job with 
 
 ```
-ijob -c 1 -A bii_dsc_community -p standard --time=1-00:00:00
+rivanna> ijob -c 1 -A bii_dsc_community -p standard --time=1-00:00:00
 ```
 
 Next
 
 ```
-cd /project/bii_dsc_community/osmibench/code/osmibench/models
+node> cd /project/bii_dsc_community/$USER/osmi/osmibench/code/osmibench/models
 ```
 
 Now Edit requirement grpc to grpcio (TODO: THis is unclear)
@@ -143,9 +159,9 @@ The next instructions are not clear as you either do requirement or conda, also 
 requirements.txt
 
 ```
-pip install –user  -r ../requirements.py 
-conda install –file ../requirements.py
-conda install grpcio
+node> pip install –user  -r ../requirements.txt 
+node> conda install –file ../requirements.txt
+node> conda install grpcio
 ```
 
 TODO this is unclear ...
@@ -163,6 +179,7 @@ python train.py small_lstm
 Results are in small_lstm/1
 
 ```
+python train.py small_lstm
 python train.py medium_cnn
 python train.py large_tcnn
 cd .. 
@@ -177,7 +194,8 @@ For this application there is no separate data
 ## run the client-side tests
 
 ```
-singularity shell --nv --home `pwd` tensorflow-serving-gpu_latest.sif
+rivanna> ijob -c 1 -A bii_dsc_community -p standard --time=1-00:00:00 --partition=bii-gpu --gres=gpu
+node> singularity shell --nv --home `pwd` tensorflow-serving-gpu_latest.sif
 singularity> nvidia-smi #to see if you can use gpus (on node)
 singularity> cd benchmark
 singularity> tensorflow_model_server --port=8500 --rest_api_port=0 --model_config_file=models.conf >& log &
@@ -190,7 +208,7 @@ python tfs_grpc_client.py -m [model, e.g. small_lstm] -b [batch size, e.g. 32] -
 simpler way
 
 ```
-ijob -c 1 -A bii_dsc_community -p standard --time=1-00:00:00 --partition=bii-gpu --gres=gpu
+rivanna> ijob -c 1 -A bii_dsc_community -p standard --time=1-00:00:00 --partition=bii-gpu --gres=gpu
 conda activate osmi
 node> cd /project/bii_dsc_community/osmibench/code/osmi-bench/benchmark
 node> singularity run --nv --home `pwd` ../serving_latest-gpu.sif tensorflow_model_server --port=8500 --rest_api_port=0 --model_config_file=models.conf >& log &
