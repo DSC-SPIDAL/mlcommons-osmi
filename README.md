@@ -41,9 +41,24 @@ cd /project/bii_dsc_community/$USER/osmi
 git clone ... TODO ...
 ```
 
-## compile models
+## Interactig with Rivanna
 
-Run interactive job on compute node (makes writing to files a lot faster)
+Rivanna has two brimary modes so users can interact with it. 
+
+* **Interactive Jobs:*** The first one are interactive jobs taht allow you to 
+  reseve a node on rivanna so it looks like a  login node. This interactive mode is
+  usefull only during the debug phase and can serve as a conveneinet way to create 
+  quickly batch scripts that are run in the second mode.
+
+*  **Batch Jobs:** The second mode is a batch job that is controlled by a batch script. 
+   We will showcase here how to set such scripts up and use them 
+
+### Compile OSMI Models in Interactive Jobs
+
+Once you know hwo to create jobs with a propper batch script you will likely no longer need to use interactive jobs. We keep this documentation for beginners that like to experiement in interactive mode to develop batch scripts.
+
+We noticed that when running interactive jobs on compute node it makes writing to the files system a lot faster.
+TODO: This is inprecise as its not discussed which file system ... Also you can just use git to sync
 
 ```
 ijob -c 1 -A bii_dsc_community -p standard --time=1-00:00:00 
