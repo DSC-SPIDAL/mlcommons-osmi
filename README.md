@@ -159,3 +159,20 @@ cat tf
 ```
 
 do this for all gpus with different ports
+
+## References
+
+1. Production Deployment of Machine-Learned Rotorcraft Surrogate Models on HPC, Wesley Brewer, Daniel Martinez, 
+   Mathew Boyer, Dylan Jude, Andy Wissink, Ben Parsons, Junqi Yin, Valentine Anantharaj
+   2021 IEEE/ACM Workshop on Machine Learning in High Performance Computing Environments (MLHPC),
+   978-1-6654-1124-0/21/$31.00 ©2021 IEEE | DOI: 10.1109/MLHPC54614.2021.00008, <https://ieeexplore.ieee.org/document/9652868>
+   TODO: please ask wess what the free pdf link is all gov organizations have one. for example as ornl is coauther it 
+   must be on their site somewhere.
+   
+
+2. Using Rivanna for GPU ussage, Gregor von Laszewski, JP. Fleischer 
+   <https://github.com/cybertraining-dsc/reu2022/blob/main/project/hpc/rivanna-introduction.md>
+
+3. Setting up a Windows computer for research, Gregor von Laszewski, J.P Fleischer 
+   <https://github.com/cybertraining-dsc/reu2022/blob/main/project/windows-configuration.md>
+
