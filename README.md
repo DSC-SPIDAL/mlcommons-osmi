@@ -33,7 +33,8 @@ Conda activate osmi
 
 ## Get the code
 
-Tho get the code we clone a gitlab instance that is hosted at Oakridge National Laboratory. To get the code, please execute
+Tho get the code we clone a gitlab instance that is hosted at Oakridge National Laboratory (<https://code.ornl.gov/whb/osmi-bench>). 
+To get the code, please execute
 
 ```
 cd /project/bii_dsc_community/$USER/osmi
