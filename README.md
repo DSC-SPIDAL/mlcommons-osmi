@@ -17,7 +17,6 @@ source ~/OSMI/bin/activate
 pip install pip -U
 ```
 
-
 ## Get the code
 
 Tho get the code we clone a gitlab instance that is hosted at Oakridge National Laboratory (<https://code.ornl.gov/whb/osmi-bench>). 
@@ -26,6 +25,8 @@ To get the code, please execute
 ```
 mkdir ~/osmi
 cd ~/osmi
+git clone git@github.com:DSC-SPIDAL/mlcommons-osmi.git
+# git clone https://github.com/DSC-SPIDAL/mlcommons-osmi.git
 git clone https://code.ornl.gov/whb/osmi-bench.git
 cd osmi-bench
 pip install -r requirements-ubuntu.txt
