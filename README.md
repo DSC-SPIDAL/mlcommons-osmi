@@ -1,14 +1,27 @@
 # mlcommons-osmi
 
-## set up the environment
+Authors: Nate, Gregor von Laszewski
+
+## Running OSMI benchmark on rivanna
+
+To run the OSMI benchmark, you will first need to generate the project directory with the code. We assume you are in the group `bii_dsc_community`. THis allows you access to the directory 
+
+```/project/bii_dsc_community```
+
+As well as the slurm partitions `gpu` and `bii_gpu`
+
+## Set up a project directory
+
+Firts you need to create a directory under your username in the project directory. We recommend to use your username. Follow these setps: 
 
 ```
-cd /project/bii_dsc_community/
-mkdir -p $user/osmi
-cd $user/osmi
+mkdir -p /project/bii_dsc_community/$USER/osmi
+cd /project/bii_dsc_community/$USER/osmi
 ```
 
-## set up virtual environment
+## Set up Python via Miniforge and Conda
+
+Next we recommend that you set up python. Although Conda is not our favorite development environment, we use conda here out of convenience. In future we will also document here how to set OSMI up with an environment from python.org useing vanillla python installs.
 
 ```
 wget https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-Linux-x86_64.sh
@@ -18,10 +31,14 @@ conda create -n osmi python=3.8
 Conda activate osmi
 ```
 
-## get the code
+## Get the code
+
+Tho get the code we clone it from TODO
 
 ```
-git clone ...
+cd /project/bii_dsc_community/$USER/osmi
+
+git clone ... TODO ...
 ```
 
 ## compile models
