@@ -178,11 +178,11 @@ For this application there is no separate data
 
 ```
 singularity shell --nv --home `pwd` tensorflow-serving-gpu_latest.sif
-nvidia-smi #to see if you can use gpus (on node)
-cd benchmark
-tensorflow_model_server --port=8500 --rest_api_port=0 --model_config_file=models.conf >& log &
-cat log //to check its working
-lsof -i :8500 // to make sure it an accept incoming directions, doesn’t work on ijob so ignore
+singularity> nvidia-smi #to see if you can use gpus (on node)
+singularity> cd benchmark
+singularity> tensorflow_model_server --port=8500 --rest_api_port=0 --model_config_file=models.conf >& log &
+singularity> cat log //to check its working
+singularity> lsof -i :8500 // to make sure it an accept incoming directions, doesn’t work on ijob so ignore
 ```
 Edit tfs_grpc_client.py to make sure all the models use float32
 python tfs_grpc_client.py -m [model, e.g. small_lstm] -b [batch size, e.g. 32] -n [# of batches, e.g. 10]  localhost:8500
@@ -192,16 +192,16 @@ simpler way
 ```
 ijob -c 1 -A bii_dsc_community -p standard --time=1-00:00:00 --partition=bii-gpu --gres=gpu
 conda activate osmi
-cd /project/bii_dsc_community/osmibench/code/osmi-bench/benchmark
-singularity run --nv --home `pwd` ../serving_latest-gpu.sif tensorflow_model_server --port=8500 --rest_api_port=0 --model_config_file=models.conf >& log &
+node> cd /project/bii_dsc_community/osmibench/code/osmi-bench/benchmark
+node> singularity run --nv --home `pwd` ../serving_latest-gpu.sif tensorflow_model_server --port=8500 --rest_api_port=0 --model_config_file=models.conf >& log &
 sleep 10
-python tfs_grpc_client.py -m large_tcnn -b 128 -n 100 localhost:8500
+node> python tfs_grpc_client.py -m large_tcnn -b 128 -n 100 localhost:8500
 ```
 run with slurm script
 
 ```
-cd /project/bii_dsc_community/osmibench/code/osmi-bench/benchmark
-Sbatch test_script.slurm
+rivanna> cd /project/bii_dsc_community/osmibench/code/osmi-bench/benchmark
+rivanna> sbatch test_script.slurm
 ```
 
 multiple gpus
@@ -211,12 +211,12 @@ Use -gres=gpu:v100:6
 in benchmark directory
 
 ```
-singularity exec --bind `pwd`:/home --pwd /home     ../haproxy_latest.sif haproxy -d -f haproxy-grpc.cfg >& haproxy.log &
-cat haproxy.log
-CUDA_VISIBLE_DEVICES=0 singularity run --home `pwd` --nv ../serving_latest-gpu.sif tensorflow_model_server --port=8500 --model_config_file=models.conf >& tfs0.log &
-cat tfs0.log
-CUDA_VISIBLE_DEVICES=1 singularity run --home `pwd` --nv ../serving_latest-gpu.sif tensorflow_model_server --port=8501 --model_config_file=models.conf >& tfs1.log &
-cat tf
+node> singularity exec --bind `pwd`:/home --pwd /home     ../haproxy_latest.sif haproxy -d -f haproxy-grpc.cfg >& haproxy.log &
+node> cat haproxy.log
+node> CUDA_VISIBLE_DEVICES=0 singularity run --home `pwd` --nv ../serving_latest-gpu.sif tensorflow_model_server --port=8500 --model_config_file=models.conf >& tfs0.log &
+node> cat tfs0.log
+node> CUDA_VISIBLE_DEVICES=1 singularity run --home `pwd` --nv ../serving_latest-gpu.sif tensorflow_model_server --port=8501 --model_config_file=models.conf >& tfs1.log &
+node> cat tf
 ```
 
 do this for all gpus with different ports
