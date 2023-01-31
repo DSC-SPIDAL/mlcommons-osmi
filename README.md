@@ -38,7 +38,7 @@ Tho get the code we clone it from TODO
 ```
 cd /project/bii_dsc_community/$USER/osmi
 
-git clone ... TODO ...
+git clone https://code.ornl.gov/whb/osmi-bench
 ```
 
 ## Interactig with Rivanna
