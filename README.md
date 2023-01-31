@@ -5,6 +5,14 @@ Authors: Nate, Gregor von Laszewski
 
 ## Running OSMI Bench on a local machine
 
+## Create python virtual environment
+
+```
+python -m venv ~/OSMI
+source ~/OSMI/bin/activate
+pip install pip -U
+```
+
 
 ## Get the code
 
@@ -12,15 +20,10 @@ Tho get the code we clone a gitlab instance that is hosted at Oakridge National 
 To get the code, please execute
 
 ```
-cd /project/bii_dsc_community/$USER/osmi
+mkdir ~/osmi
+cd ~/osmi
 git clone https://code.ornl.gov/whb/osmi-bench.git
 cd osmi-bench
-```
-## Create python virtual environment
-
-```
-python -m venv ~/OSMI
-source ~/OSMI/bin/activate
 pip install -r requirements.txt
 ```
 
