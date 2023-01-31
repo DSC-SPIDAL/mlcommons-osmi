@@ -32,10 +32,29 @@ pip install -r requirements-ubuntu.txt
 ## Now run a small OSMI model benchmark
 
 ```
-time python train.py small_lstm
-time python train.py medium_cnn
-time python train.py large_tcnn
+cd models
+time python train.py small_lstm  # taks about 10s on an 5950X
+time python train.py medium_cnn  # taks less the 12s on an 5950X
+time python train.py large_tcnn  # takes less the 30s on an 5950X
 ```
+
+## Install tensorflow serving in ubuntu
+
+Unclear. the documentation do this with singularity, I do have singularity on desktop, but can we use it natively and compare with singularity performance?
+
+Nate will explore theoretically how to isntall tensorflow servving on ubuntu
+
+compare if others have install instructions, these are old from 16.01 but we want 21. ...
+
+```
+sudo pip install tensorflow-serving-api
+echo "deb [arch=amd64] http://storage.googleapis.com/tensorflow-serving-apt stable tensorflow-model-server tensorflow-model-server-universal" | sudo tee /etc/apt/sources.list.d/tensorflow-serving.list
+curl https://storage.googleapis.com/tensorflow-serving-apt/tensorflow-serving.release.pub.gpg | sudo apt-key add -
+sudo apt-get update && sudo apt-get install tensorflow-model-server
+which tensorflow_model_server
+```
+
+next steps to do
 
 
 ## Running OSMI benchmark on rivanna
@@ -155,9 +174,9 @@ For this application there is no separate data
 ```
 singularity shell --nv --home `pwd` tensorflow-serving-gpu_latest.sif
 nvidia-smi #to see if you can use gpus (on node)
-Cd benchmark
+cd benchmark
 tensorflow_model_server --port=8500 --rest_api_port=0 --model_config_file=models.conf >& log &
-Cat log //to check its working
+cat log //to check its working
 lsof -i :8500 // to make sure it an accept incoming directions, doesn’t work on ijob so ignore
 ```
 Edit tfs_grpc_client.py to make sure all the models use float32
