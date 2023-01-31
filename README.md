@@ -175,4 +175,6 @@ do this for all gpus with different ports
 
 3. Setting up a Windows computer for research, Gregor von Laszewski, J.P Fleischer 
    <https://github.com/cybertraining-dsc/reu2022/blob/main/project/windows-configuration.md>
+   
+4. INitial notes to be deleted, Nate: <https://docs.google.com/document/d/1luDAAatx6ZD_9-gM5HZZLcvglLuk_OqswzAS2n_5rNA>
 
