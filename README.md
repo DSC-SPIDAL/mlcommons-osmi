@@ -45,7 +45,7 @@ git clone ... TODO ...
 
 Rivanna has two brimary modes so users can interact with it. 
 
-* **Interactive Jobs:*** The first one are interactive jobs taht allow you to 
+* **Interactive Jobs:** The first one are interactive jobs taht allow you to 
   reseve a node on rivanna so it looks like a  login node. This interactive mode is
   usefull only during the debug phase and can serve as a conveneinet way to create 
   quickly batch scripts that are run in the second mode.
@@ -60,17 +60,38 @@ Once you know hwo to create jobs with a propper batch script you will likely no 
 We noticed that when running interactive jobs on compute node it makes writing to the files system a lot faster.
 TODO: This is inprecise as its not discussed which file system ... Also you can just use git to sync
 
+First, obtain an interactive job with 
+
 ```
-ijob -c 1 -A bii_dsc_community -p standard --time=1-00:00:00 
+ijob -c 1 -A bii_dsc_community -p standard --time=1-00:00:00
+```
+
+Next
+
+```
 cd /project/bii_dsc_community/osmibench/code/osmibench/models
-# Edit requirement grpc to grpcio
-//there are sometimes problems with installing libraries so try conda if pip doesn’t work
+```
+
+Now Edit requirement grpc to grpcio (TODO: THis is unclear)
+
+There are sometimes problems with installing libraries so try conda if pip doesn’t work
+(TODO: This is unclear and not precise enough ther must not be any problems, ...)
+
+The next instructions are not clear as you either do requirement or conda, also the file is called 
+
+requirements.txt
+
+```
 pip install –user  -r ../requirements.py 
 conda install –file ../requirements.py
 conda install grpcio
 ```
 
+TODO this is unclear ...
+
 At this point I hat to rename .local to avoid an error
+
+TODO: if pip or conda would have worked properly with requirements the following would already been taken care off, so this is not needed. IF additional requirements are needed, tey should be in this git repo and we need to use that requiremnts.txt filw also. Maybe it needs to be called requrements-rivanna-conda.txt or requrements-rivanna-python.txt
 
 ```
 pip install –user tensorflow requests tqdm
