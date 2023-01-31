@@ -2,8 +2,12 @@
 
 Authors: Nate, Gregor von Laszewski
 
+## Running OSMI Bench on a local WIndows machine running WSL
 
-## Running OSMI Bench on a local machine
+1. create isolated new wsl environment
+2. use what we do in the ubutnt thing, but do separate documentation er as the ubuntu native install may have other steps or issuse
+
+## Running OSMI Bench on a local machine running Ubuntu
 
 ## Create python virtual environment
 
