@@ -24,8 +24,10 @@ mkdir ~/osmi
 cd ~/osmi
 git clone https://code.ornl.gov/whb/osmi-bench.git
 cd osmi-bench
-pip install -r requirements.txt
+pip install -r requirements-ubuntu.txt
 ```
+
+**Note: the original version of grpcio 1.0.0 does not distribute valid wheels, hence we assume the library is out of date, but a new version with 1.15.1 is available that is distributed. Gregor strongly recoomnds to swithc to a supported version of grpcio.**
 
 ## Now run a small OSMI model benchmark
 
