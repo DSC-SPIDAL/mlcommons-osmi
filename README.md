@@ -1,6 +1,6 @@
 # mlcommons-osmi
 
-## set up the environment:
+## set up the environment
 
 ```
 cd /project/bii_dsc_community/
@@ -8,7 +8,7 @@ mkdir -p $user/osmi
 cd $user/osmi
 ```
 
-## set up virtual environment:
+## set up virtual environment
 
 ```
 wget https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-Linux-x86_64.sh
@@ -21,13 +21,14 @@ Conda activate osmi
 ## get the code
 
 ```
-git clone _
+git clone ...
 ```
 
 ## compile models
 
+Run interactive job on compute node (makes writing to files a lot faster)
+
 ```
-# Run interactive job on compute node (makes writing to files a lot faster)
 ijob -c 1 -A bii_dsc_community -p standard --time=1-00:00:00 
 cd /project/bii_dsc_community/osmibench/code/osmibench/models
 # Edit requirement grpc to grpcio
@@ -35,20 +36,29 @@ cd /project/bii_dsc_community/osmibench/code/osmibench/models
 pip install –user  -r ../requirements.py 
 conda install –file ../requirements.py
 conda install grpcio
-# At this point I hat to rename .local to avoid an error
+```
+
+At this point I hat to rename .local to avoid an error
+
+```
 pip install –user tensorflow requests tqdm
 pip install tensorflow-serving-api
 python train.py small_lstm
-# Results are in small_lstm/1
+```
+
+Results are in small_lstm/1
+
+```
 python train.py medium_cnn
 python train.py large_tcnn
 cd .. 
 singularity pull docker://bitnami/tensorflow-serving [for cpu]
 singularity pull docker://tensorflow/serving:latest-gpu
-//Edit benchmark/models.conf to make each base_path correspond to the proper directory e.g. "/project/bii_dsc_community/osmibench/code/osmi-bench/models/small_lstm",
 ```
 
-for this application there is no separate data
+Edit benchmark/models.conf to make each base_path correspond to the proper directory e.g. "/project/bii_dsc_community/osmibench/code/osmi-bench/models/small_lstm",
+
+For this application there is no separate data
 
 ## run the client-side tests
 
@@ -59,28 +69,40 @@ Cd benchmark
 tensorflow_model_server --port=8500 --rest_api_port=0 --model_config_file=models.conf >& log &
 Cat log //to check its working
 lsof -i :8500 // to make sure it an accept incoming directions, doesn’t work on ijob so ignore
-//Edit tfs_grpc_client.py to make sure all the models use float32
-python tfs_grpc_client.py -m [model, e.g. small_lstm] -b [batch size, e.g. 32] -n [# of batches, e.g. 10]  localhost:8500
 ```
+Edit tfs_grpc_client.py to make sure all the models use float32
+python tfs_grpc_client.py -m [model, e.g. small_lstm] -b [batch size, e.g. 32] -n [# of batches, e.g. 10]  localhost:8500
 
-//simpler way
+simpler way
+
+```
 ijob -c 1 -A bii_dsc_community -p standard --time=1-00:00:00 --partition=bii-gpu --gres=gpu
 conda activate osmi
 cd /project/bii_dsc_community/osmibench/code/osmi-bench/benchmark
 singularity run --nv --home `pwd` ../serving_latest-gpu.sif tensorflow_model_server --port=8500 --rest_api_port=0 --model_config_file=models.conf >& log &
 sleep 10
 python tfs_grpc_client.py -m large_tcnn -b 128 -n 100 localhost:8500
-//run with slurm script
-Cd /project/bii_dsc_community/osmibench/code/osmi-bench/benchmark
-Sbatch test_script.slurm
+```
+run with slurm script
 
-//multiple gpus
+```
+cd /project/bii_dsc_community/osmibench/code/osmi-bench/benchmark
+Sbatch test_script.slurm
+```
+
+multiple gpus
+
 Use -gres=gpu:v100:6
-//in benchmark directory
+
+in benchmark directory
+
+```
 singularity exec --bind `pwd`:/home --pwd /home     ../haproxy_latest.sif haproxy -d -f haproxy-grpc.cfg >& haproxy.log &
-Cat haproxy.log
+cat haproxy.log
 CUDA_VISIBLE_DEVICES=0 singularity run --home `pwd` --nv ../serving_latest-gpu.sif tensorflow_model_server --port=8500 --model_config_file=models.conf >& tfs0.log &
-Cat tfs0.log
+cat tfs0.log
 CUDA_VISIBLE_DEVICES=1 singularity run --home `pwd` --nv ../serving_latest-gpu.sif tensorflow_model_server --port=8501 --model_config_file=models.conf >& tfs1.log &
-Cat tf
-//do this for all gpus with different ports
+cat tf
+```
+
+do this for all gpus with different ports
