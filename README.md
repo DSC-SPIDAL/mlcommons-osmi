@@ -38,7 +38,7 @@ To get the code, please execute
 
 ```
 cd /project/bii_dsc_community/$USER/osmi
-git clone https://code.ornl.gov/whb/osmi-bench
+git clone https://code.ornl.gov/whb/osmi-bench.git
 cd osmi-bench
 ```
 
