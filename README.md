@@ -143,6 +143,8 @@ First, obtain an interactive job with
 rivanna> ijob -c 1 -A bii_dsc_community -p standard --time=1-00:00:00
 ```
 
+*note: use --partition=bii-gpu --gres=gpu:v100:n to recieve n v100 GPUs
+
 Next
 
 ```
