@@ -1,11 +1,11 @@
 # mlcommons-osmi
 
-Authors: Nate, Gregor von Laszewski
+Authors: Nate Kimball, Gregor von Laszewski
 
-## Running OSMI Bench on a local WIndows machine running WSL
+## Running OSMI Bench on a local Windows machine running WSL
 
 1. create isolated new wsl environment
-2. use what we do in the ubutnt thing, but do separate documentation er as the ubuntu native install may have other steps or issuse
+2. use what we do in the ubuntu thing, but do separate documentation er as the ubuntu native install may have other steps or issuse
 
 ## Running OSMI Bench on a local machine running Ubuntu
 
@@ -19,8 +19,7 @@ pip install pip -U
 
 ## Get the code
 
-Tho get the code we clone a gitlab instance that is hosted at Oakridge National Laboratory (<https://code.ornl.gov/whb/osmi-bench>). 
-To get the code, please execute
+To get the code we clone a gitlab instance that is hosted at Oakridge National Laboratory (<https://code.ornl.gov/whb/osmi-bench>), please execute:
 
 ```
 mkdir ~/osmi
@@ -72,13 +71,14 @@ As well as the slurm partitions `gpu` and `bii_gpu`
 
 ## Set up a project directory and get the code
 
-Firts you need to create a directory under your username in the project directory. We recommend to use your username. Follow these setps: 
+To get the code we clone a gitlab instance that is hosted at Oakridge National Laboratory (<https://code.ornl.gov/whb/osmi-bench>). Firts you need to create a directory under your username in the project directory. We recommend to use your username. Follow these setps: 
 
 ```
 mkdir -p /project/bii_dsc_community/$USER/osmi
 cd /project/bii_dsc_community/$USER/osmi
 git clone git@github.com:DSC-SPIDAL/mlcommons-osmi.git
 git clone https://code.ornl.gov/whb/osmi-bench.git
+cd osmi-bench
 ```
 
 ## Set up Python via Miniforge and Conda
@@ -107,16 +107,6 @@ rivanna> conda activate OSMI
 ```
 
 DO NOT USE CONDA INIT!!!!!
-
-## Get the code
-
-Tho get the code we clone a gitlab instance that is hosted at Oakridge National Laboratory (<https://code.ornl.gov/whb/osmi-bench>). 
-To get the code, please execute
-
-```
-cd /project/bii_dsc_community/$USER/osmi
-cd osmi-bench
-```
 
 ## Interactig with Rivanna
 
@@ -148,48 +138,26 @@ rivanna> ijob -c 1 -A bii_dsc_community -p standard --time=1-00:00:00
 Next
 
 ```
-node> cd /project/bii_dsc_community/$USER/osmi/osmibench/code/osmibench/models
+node> cd /project/bii_dsc_community/$USER/osmi/osmi-bench/
 ```
 
-Now Edit requirement grpc to grpcio (TODO: THis is unclear)
-
-There are sometimes problems with installing libraries so try conda if pip doesn’t work
-(TODO: This is unclear and not precise enough ther must not be any problems, ...)
-
-The next instructions are not clear as you either do requirement or conda, also the file is called 
-
-requirements.txt
+Now edit requirements.txt to remove the version number from grpcio
 
 ```
-node> pip install –user  -r ../requirements.txt 
-node> conda install –file ../requirements.txt
-node> conda install grpcio
+node> pip install –-user  -r requirements.txt 
 ```
 
-TODO this is unclear ...
-
-At this point I hat to rename .local to avoid an error
-
-TODO: if pip or conda would have worked properly with requirements the following would already been taken care off, so this is not needed. IF additional requirements are needed, tey should be in this git repo and we need to use that requiremnts.txt filw also. Maybe it needs to be called requrements-rivanna-conda.txt or requrements-rivanna-python.txt
-
 ```
-pip install –user tensorflow requests tqdm
-pip install tensorflow-serving-api
-python train.py small_lstm
-```
-
-Results are in small_lstm/1
-
-```
-python train.py small_lstm
-python train.py medium_cnn
-python train.py large_tcnn
+node> cd models
+node> python train.py small_lstm
+node> python train.py medium_cnn
+node> python train.py large_tcnn
 cd .. 
 singularity pull docker://bitnami/tensorflow-serving [for cpu]
 singularity pull docker://tensorflow/serving:latest-gpu
 ```
 
-Edit benchmark/models.conf to make each base_path correspond to the proper directory e.g. "/project/bii_dsc_community/osmibench/code/osmi-bench/models/small_lstm",
+Edit /project/bii_dsc_community/$USER/osmi/osmi-bench/benchmark/models.conf to make each base_path correspond to the proper directory e.g. "/project/bii_dsc_community/$USER/osmi/osmi-bench/models/small_lstm",
 
 For this application there is no separate data
 
@@ -202,9 +170,13 @@ singularity> nvidia-smi #to see if you can use gpus (on node)
 singularity> cd benchmark
 singularity> tensorflow_model_server --port=8500 --rest_api_port=0 --model_config_file=models.conf >& log &
 singularity> cat log //to check its working
-singularity> lsof -i :8500 // to make sure it an accept incoming directions, doesn’t work on ijob so ignore
+singularity> lsof -i :8500 // to make sure it an accept incoming directions
 ```
-Edit tfs_grpc_client.py to make sure all the models use float32
+
+Edit /project/bii_dsc_community/$USER/osmi/osmi-bench/benchmark/tfs_grpc_client.py to make sure all the models use float32
+To run the client:
+
+```
 python tfs_grpc_client.py -m [model, e.g. small_lstm] -b [batch size, e.g. 32] -n [# of batches, e.g. 10]  localhost:8500
 
 simpler way
@@ -212,7 +184,7 @@ simpler way
 ```
 rivanna> ijob -c 1 -A bii_dsc_community -p standard --time=1-00:00:00 --partition=bii-gpu --gres=gpu
 conda activate osmi
-node> cd /project/bii_dsc_community/osmibench/code/osmi-bench/benchmark
+node> cd /project/bii_dsc_community/$USER/osmi/osmi-bench/benchmark
 node> singularity run --nv --home `pwd` ../serving_latest-gpu.sif tensorflow_model_server --port=8500 --rest_api_port=0 --model_config_file=models.conf >& log &
 sleep 10
 node> python tfs_grpc_client.py -m large_tcnn -b 128 -n 100 localhost:8500
@@ -220,15 +192,11 @@ node> python tfs_grpc_client.py -m large_tcnn -b 128 -n 100 localhost:8500
 run with slurm script
 
 ```
-rivanna> cd /project/bii_dsc_community/osmibench/code/osmi-bench/benchmark
+rivanna> cd /project/bii_dsc_community/$USER/osmi/osmi-bench/benchmark
 rivanna> sbatch test_script.slurm
 ```
 
-multiple gpus
-
-Use -gres=gpu:v100:6
-
-in benchmark directory
+Multiple GPU parallelization - incomplete
 
 ```
 node> singularity exec --bind `pwd`:/home --pwd /home     ../haproxy_latest.sif haproxy -d -f haproxy-grpc.cfg >& haproxy.log &
@@ -257,5 +225,5 @@ do this for all gpus with different ports
 3. Setting up a Windows computer for research, Gregor von Laszewski, J.P Fleischer 
    <https://github.com/cybertraining-dsc/reu2022/blob/main/project/windows-configuration.md>
    
-4. INitial notes to be deleted, Nate: <https://docs.google.com/document/d/1luDAAatx6ZD_9-gM5HZZLcvglLuk_OqswzAS2n_5rNA>
+4. Initial notes to be deleted, Nate: <https://docs.google.com/document/d/1luDAAatx6ZD_9-gM5HZZLcvglLuk_OqswzAS2n_5rNA>
 
