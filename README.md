@@ -112,10 +112,10 @@ DO NOT USE CONDA INIT!!!!!
 
 Rivanna has two brimary modes so users can interact with it. 
 
-* **Interactive Jobs:** The first one are interactive jobs taht allow you to 
-  reseve a node on rivanna so it looks like a  login node. This interactive mode is
-  usefull only during the debug phase and can serve as a conveneinet way to create 
-  quickly batch scripts that are run in the second mode.
+* **Interactive Jobs:** The first one are interactive jobs that allow you to 
+  reserve a node on rivanna so it looks like a login node. This interactive mode is
+  usefull only during the debug phase and can serve as a convenient way to quickly create 
+  batch scripts that are run in the second mode.
 
 *  **Batch Jobs:** The second mode is a batch job that is controlled by a batch script. 
    We will showcase here how to set such scripts up and use them 
@@ -165,7 +165,7 @@ For this application there is no separate data
 
 ```
 rivanna> ijob -c 1 -A bii_dsc_community -p standard --time=1-00:00:00 --partition=bii-gpu --gres=gpu
-node> singularity shell --nv --home `pwd` tensorflow-serving-gpu_latest.sif
+node> singularity shell --nv --home `pwd` serving_latest-gpu.sif
 singularity> nvidia-smi #to see if you can use gpus (on node)
 singularity> cd benchmark
 singularity> tensorflow_model_server --port=8500 --rest_api_port=0 --model_config_file=models.conf >& log &
@@ -187,7 +187,6 @@ rivanna> ijob -c 1 -A bii_dsc_community -p standard --time=1-00:00:00 --partitio
 conda activate osmi
 node> cd /project/bii_dsc_community/$USER/osmi/osmi-bench/benchmark
 node> singularity run --nv --home `pwd` ../serving_latest-gpu.sif tensorflow_model_server --port=8500 --rest_api_port=0 --model_config_file=models.conf >& log &
-sleep 10
 node> python tfs_grpc_client.py -m large_tcnn -b 128 -n 100 localhost:8500
 ```
 run with slurm script
