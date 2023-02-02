@@ -108,7 +108,7 @@ rivanna> conda activate OSMI
 
 DO NOT USE CONDA INIT!!!!!
 
-## Interactig with Rivanna
+## Interacting with Rivanna
 
 Rivanna has two brimary modes so users can interact with it. 
 
@@ -178,6 +178,7 @@ To run the client:
 
 ```
 python tfs_grpc_client.py -m [model, e.g. small_lstm] -b [batch size, e.g. 32] -n [# of batches, e.g. 10]  localhost:8500
+```
 
 simpler way
 
