@@ -6,10 +6,10 @@ Authors: Nate Kimball, Gregor von Laszewski
 
 1. [Running OSMI Bench on a local Windows machine running WSL](#running-osmi-bench-on-a-local-windows-wsl)
 
-   1.1. [Create python virtual environment](#create-python-virtual-environment-on-ubuntu)
-   1.2. [Get the code](#get-the-code)
-   1.3. [Running the small OSMI model benchmark](#running-the-small-osmi-model-benchmark)
-   1.4. [Install tensorflow serving in ubuntu](#install-tensorflow-serving-in-ubuntu)
+   1. [Create python virtual environment](#create-python-virtual-environment-on-ubuntu)
+   2. [Get the code](#get-the-code)
+   3. [Running the small OSMI model benchmark](#running-the-small-osmi-model-benchmark)
+   4. [Install tensorflow serving in ubuntu](#install-tensorflow-serving-in-ubuntu)
 
 2. [Running OSMI Bench on a local machine running Ubuntu](#running-osmi-bench-on-ubuntu)
 
