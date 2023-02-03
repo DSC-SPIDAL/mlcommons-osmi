@@ -29,6 +29,43 @@ TODO: Nate
 1. create isolated new wsl environment
 2. use what we do in the ubuntu thing, but do separate documentation er as the ubuntu native install may have other steps or issuse
 
+
+### Create python virtual environment on WSL Ubuntu
+
+```
+wsl> python3 -m venv /home/$USER/OSMI
+wsl> source /home/$USER/OSMI/bin/activate
+wsl> python -V
+wsl> pip install pip -U
+```
+
+### Get the code
+
+To get the [code](<https://code.ornl.gov/whb/osmi-bench>) we clone a gitlab instance that is hosted at Oakridge National Laboratory , please execute:
+
+```
+export PROJECT=/home/$USER/project/osmi
+mkdir -p $PROJECT
+cd $PROJECT
+git clone https://github.com/DSC-SPIDAL/mlcommons-osmi.git
+git clone https://code.ornl.gov/whb/osmi-bench.git
+cd osmi-bench
+pip install -r $PROJECT/mlcommons-osmi/wsl/requirements.txt
+```
+
+###
+
+```
+wsl> cd $PROJECT/mlcommons-osmi/wsl
+wsl> 
+wsl> make image
+wsl> cd models
+wsl> python train.py small_lstm
+wsl> python train.py medium_cnn
+wsl> python train.py large_tcnn
+cd .. 
+```
+
 ## Running OSMI Bench on Ubuntu
 
 ### Create python virtual environment on Ubuntu
@@ -51,7 +88,7 @@ git clone git@github.com:DSC-SPIDAL/mlcommons-osmi.git
 # git clone https://github.com/DSC-SPIDAL/mlcommons-osmi.git
 git clone https://code.ornl.gov/whb/osmi-bench.git
 cd osmi-bench
-pip install -r requirements-ubuntu.txt
+pip install -r ../../mlcommons-osmi/requirements-ubuntu.txt
 ```
 
 **Note: the original version of grpcio 1.0.0 does not distribute valid wheels, hence we assume the library is out of date, but a new version with 1.15.1 is available that is distributed. Gregor strongly recoomnds to swithc to a supported version of grpcio.**
@@ -87,7 +124,7 @@ Running the program
 ```
 make run
 make shell
-...
+//download python
 ```
 TODO: complete
 
