@@ -7,6 +7,9 @@ Authors: Nate Kimball, Gregor von Laszewski
 1. [Running OSMI Bench on a local Windows machine running WSL](#running-osmi-bench-on-a-local-windows-wsl)
 
    1.1. [Create python virtual environment](#create-python-virtual-environment-on-ubuntu)
+   1.2. [Get the code](#get-the-code)
+   1.3. [Running the small OSMI model benchmark](#running-the-small-osmi-model-benchmark)
+   1.4. [Install tensorflow serving in ubuntu](#install-tensorflow-serving-in-ubuntu)
 
 2. [Running OSMI Bench on a local machine running Ubuntu](#running-osmi-bench-on-ubuntu)
 
@@ -44,7 +47,7 @@ pip install -r requirements-ubuntu.txt
 
 **Note: the original version of grpcio 1.0.0 does not distribute valid wheels, hence we assume the library is out of date, but a new version with 1.15.1 is available that is distributed. Gregor strongly recoomnds to swithc to a supported version of grpcio.**
 
-### Now run a small OSMI model benchmark
+### Running the small OSMI model benchmark
 
 ```
 cd models
