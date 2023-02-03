@@ -13,6 +13,15 @@ Authors: Nate Kimball, Gregor von Laszewski
    3. [Running the small OSMI model benchmark](#running-the-small-osmi-model-benchmark)
    4. [Install tensorflow serving in ubuntu](#install-tensorflow-serving-in-ubuntu)
 
+## TODO
+
+1. create table of contents for readme
+2. finish setting up osmi on wsl
+3. create makefiles
+   a. make image (pull)
+   b. make run
+   c. make shell
+
 ## Running OSMI Bench on a local Windows WSL
 
 TODO: Nate
@@ -70,9 +79,17 @@ echo "deb [arch=amd64] http://storage.googleapis.com/tensorflow-serving-apt stab
 curl https://storage.googleapis.com/tensorflow-serving-apt/tensorflow-serving.release.pub.gpg | sudo apt-key add -
 sudo apt-get update && sudo apt-get install tensorflow-model-server
 which tensorflow_model_server
+make image
 ```
 
-next steps to do
+Running the program
+
+```
+make run
+make shell
+...
+```
+TODO: complete
 
 
 ## Running OSMI benchmark on rivanna
@@ -203,6 +220,7 @@ node> cd /project/bii_dsc_community/$USER/osmi/osmi-bench/benchmark
 node> singularity run --nv --home `pwd` ../serving_latest-gpu.sif tensorflow_model_server --port=8500 --rest_api_port=0 --model_config_file=models.conf >& log &
 node> python tfs_grpc_client.py -m large_tcnn -b 128 -n 100 localhost:8500
 ```
+
 run with slurm script
 
 ```
