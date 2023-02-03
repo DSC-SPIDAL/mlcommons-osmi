@@ -33,7 +33,7 @@ pip install pip -U
 
 ### Get the code
 
-To get the code we clone a gitlab instance that is hosted at Oakridge National Laboratory (<https://code.ornl.gov/whb/osmi-bench>), please execute:
+To get the [code](<https://code.ornl.gov/whb/osmi-bench>) we clone a gitlab instance that is hosted at Oakridge National Laboratory , please execute:
 
 ```
 mkdir ~/osmi
