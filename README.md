@@ -4,9 +4,9 @@ Authors: Nate Kimball, Gregor von Laszewski
 
 ## Table of contents
 
-[Running OSMI Bench on a local Windows machine running WSL](#Running OSMI Bench on a local Windows machine running WSL)
+1. [Running OSMI Bench on a local Windows machine running WSL](#running-osmi-bench-on-a-local-windows-machine-running-wsl)
 
-[Running OSMI Bench on a local machine running Ubuntu](#Running OSMI Bench on a local machine running Ubuntu)
+2. [Running OSMI Bench on a local machine running Ubuntu](#Running OSMI Bench on a local machine running Ubuntu)
 
 ## Running OSMI Bench on a local Windows machine running WSL
 
