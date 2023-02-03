@@ -4,26 +4,31 @@ Authors: Nate Kimball, Gregor von Laszewski
 
 ## Table of contents
 
-1. [Running OSMI Bench on a local Windows machine running WSL](#running-osmi-bench-on-a-local-windows-machine-running-wsl)
+1. [Running OSMI Bench on a local Windows machine running WSL](#running-osmi-bench-on-a-local-windows-wsl)
 
-2. [Running OSMI Bench on a local machine running Ubuntu](#Running OSMI Bench on a local machine running Ubuntu)
+   1.1. [Create python virtual environment](#create-python-virtual-environment-on-ubuntu)
 
-## Running OSMI Bench on a local Windows machine running WSL
+2. [Running OSMI Bench on a local machine running Ubuntu](#running-osmi-bench-on-ubuntu)
+
+## Running OSMI Bench on a local Windows WSL
+
+TODO: Nate
 
 1. create isolated new wsl environment
 2. use what we do in the ubuntu thing, but do separate documentation er as the ubuntu native install may have other steps or issuse
 
-## Running OSMI Bench on a local machine running Ubuntu
+## Running OSMI Bench on Ubuntu
 
-## Create python virtual environment
+### Create python virtual environment on Ubuntu
 
+TODO: Gregor
 ```
 python -m venv ~/OSMI
 source ~/OSMI/bin/activate
 pip install pip -U
 ```
 
-## Get the code
+### Get the code
 
 To get the code we clone a gitlab instance that is hosted at Oakridge National Laboratory (<https://code.ornl.gov/whb/osmi-bench>), please execute:
 
@@ -39,7 +44,7 @@ pip install -r requirements-ubuntu.txt
 
 **Note: the original version of grpcio 1.0.0 does not distribute valid wheels, hence we assume the library is out of date, but a new version with 1.15.1 is available that is distributed. Gregor strongly recoomnds to swithc to a supported version of grpcio.**
 
-## Now run a small OSMI model benchmark
+### Now run a small OSMI model benchmark
 
 ```
 cd models
@@ -48,7 +53,7 @@ time python train.py medium_cnn  # taks less the 12s on an 5950X
 time python train.py large_tcnn  # takes less the 30s on an 5950X
 ```
 
-## Install tensorflow serving in ubuntu
+### Install tensorflow serving in ubuntu
 
 Unclear. the documentation do this with singularity, I do have singularity on desktop, but can we use it natively and compare with singularity performance?
 
