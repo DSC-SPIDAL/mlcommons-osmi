@@ -60,8 +60,8 @@ wsl> cd $PROJECT/mlcommons-osmi/wsl
 wsl> 
 wsl> make image
 wsl> cd models
-wsl> python train.py small_lstm
-wsl> python train.py medium_cnn
+wsl> time python train.py small_lstm (14.01s user 1.71s system 135% cpu 11.605 total)
+wsl> python train.py medium_cnn (109.20s user 6.84s system 407% cpu 28.481 total)
 wsl> python train.py large_tcnn
 cd .. 
 ```
