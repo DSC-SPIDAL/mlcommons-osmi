@@ -13,12 +13,58 @@ Authors: Nate Kimball, Gregor von Laszewski
    3. [Running the small OSMI model benchmark](#running-the-small-osmi-model-benchmark)
    4. [Install tensorflow serving in ubuntu](#install-tensorflow-serving-in-ubuntu)
 
+## TODO
+
+1. create table of contents for readme
+2. finish setting up osmi on wsl
+3. create makefiles
+   a. make image (pull)
+   b. make run
+   c. make shell
+
 ## Running OSMI Bench on a local Windows WSL
 
 TODO: Nate
 
 1. create isolated new wsl environment
 2. use what we do in the ubuntu thing, but do separate documentation er as the ubuntu native install may have other steps or issuse
+
+
+### Create python virtual environment on WSL Ubuntu
+
+```
+wsl> python3 -m venv /home/$USER/OSMI
+wsl> source /home/$USER/OSMI/bin/activate
+wsl> python -V
+wsl> pip install pip -U
+```
+
+### Get the code
+
+To get the [code](<https://code.ornl.gov/whb/osmi-bench>) we clone a gitlab instance that is hosted at Oakridge National Laboratory , please execute:
+
+```
+export PROJECT=/home/$USER/project/osmi
+mkdir -p $PROJECT
+cd $PROJECT
+git clone https://github.com/DSC-SPIDAL/mlcommons-osmi.git
+git clone https://code.ornl.gov/whb/osmi-bench.git
+cd osmi-bench
+pip install -r $PROJECT/mlcommons-osmi/wsl/requirements.txt
+```
+
+###
+
+```
+wsl> cd $PROJECT/mlcommons-osmi/wsl
+wsl> 
+wsl> make image
+wsl> cd models
+wsl> time python train.py small_lstm (14.01s user 1.71s system 135% cpu 11.605 total)
+wsl> python train.py medium_cnn (109.20s user 6.84s system 407% cpu 28.481 total)
+wsl> python train.py large_tcnn
+cd .. 
+```
 
 ## Running OSMI Bench on Ubuntu
 
@@ -42,7 +88,7 @@ git clone git@github.com:DSC-SPIDAL/mlcommons-osmi.git
 # git clone https://github.com/DSC-SPIDAL/mlcommons-osmi.git
 git clone https://code.ornl.gov/whb/osmi-bench.git
 cd osmi-bench
-pip install -r requirements-ubuntu.txt
+pip install -r ../../mlcommons-osmi/requirements-ubuntu.txt
 ```
 
 **Note: the original version of grpcio 1.0.0 does not distribute valid wheels, hence we assume the library is out of date, but a new version with 1.15.1 is available that is distributed. Gregor strongly recoomnds to swithc to a supported version of grpcio.**
@@ -70,9 +116,17 @@ echo "deb [arch=amd64] http://storage.googleapis.com/tensorflow-serving-apt stab
 curl https://storage.googleapis.com/tensorflow-serving-apt/tensorflow-serving.release.pub.gpg | sudo apt-key add -
 sudo apt-get update && sudo apt-get install tensorflow-model-server
 which tensorflow_model_server
+make image
 ```
 
-next steps to do
+Running the program
+
+```
+make run
+make shell
+//download python
+```
+TODO: complete
 
 
 ## Running OSMI benchmark on rivanna
@@ -203,6 +257,7 @@ node> cd /project/bii_dsc_community/$USER/osmi/osmi-bench/benchmark
 node> singularity run --nv --home `pwd` ../serving_latest-gpu.sif tensorflow_model_server --port=8500 --rest_api_port=0 --model_config_file=models.conf >& log &
 node> python tfs_grpc_client.py -m large_tcnn -b 128 -n 100 localhost:8500
 ```
+
 run with slurm script
 
 ```
