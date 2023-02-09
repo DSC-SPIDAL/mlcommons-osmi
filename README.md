@@ -15,12 +15,9 @@ Authors: Nate Kimball, Gregor von Laszewski
 
 ## TODO
 
-1. create table of contents for readme
-2. finish setting up osmi on wsl
-3. create makefiles
-   a. make image (pull)
-   b. make run
-   c. make shell
+1. finish sbatch scripts
+2. automate sbatch scripts
+2. figure out why wsl isn't working
 
 ## Running OSMI Bench on a local Windows WSL
 
@@ -124,7 +121,7 @@ Running the program
 ```
 make run
 make shell
-//download python
+python tfs_grpc_client.py -m small_lstm -b 32 -n 48 localhost:8500
 ```
 TODO: complete
 
