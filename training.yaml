@@ -1,24 +1,18 @@
-name: earthquake-localscratch
+name: osmi-bench
 sbatch:
   mode: h
   dir: localscratch
-
-data:
-  git: https://github.com/laszewsk/mlcommons-data-earthquake.git
-  destination: "$HOME/mlcommons-work"
-  earthquake: mlcommons-data-earthquake/data/EarthquakeDec2020
-  images: images
 
 experiment:
   card_name: a100
   gpu_count: 1
   cpu_num: 6
   mem: "32GB"
-  repeat: "1"
+  # repeat: "1"
   # repeat: "1,2,3,4,5"
-  batch_size: "16,32,48,64,128"
-  batches: "64,100"
-  model: "small_lstm"
+  batch_size: "16,48,96"
+  batches: "32,64,128"
+  model: "small_lstm, large_lstm"
 
 system:
   time: "00:30:00"
@@ -30,12 +24,12 @@ system:
   constraint: ""
 
 submission:
-  benchmark: earthquake
+  benchmark: osmi
   submitter: Gregor von Laszewski
   email: laszewski@gmail.com
   org: University of Virginia
   division: closed
-  version: mlcommons-earthquake-v1.0
+  version: mlcommons-osmi-v1.0
   github_commit_version: TBD
   status: completed
   platform: rivanna
