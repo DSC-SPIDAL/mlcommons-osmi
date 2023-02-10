@@ -16,8 +16,10 @@
 
 set -uxe
 
-source ~/OSMI
+module load anaconda
+conda activate OSMI
 pip install --user -r /project/bii_dsc_community/$USER/osmi/mlcommons-osmi/requirements-rivanna.txt
+
 cd /project/bii_dsc_community/$USER/osmibench/code/osmi-bench/benchmark
 singularity run --nv --home `pwd` ../tensorflow-serving_latest.sif tensorflow_model_server --port=8500 --rest_api_port=0 --model_config_file=models.conf >& log &
 sleep 12 # check that tensorflow is running

@@ -17,7 +17,7 @@ experiment:
 system:
   time: "00:30:00"
   host: "rivanna"
-  python: "3.10.8" #fix
+  python: "3.10.8"
   num_cpus: 1
   partition: "bii-gpu"
   allocation: bii_dsc_community
