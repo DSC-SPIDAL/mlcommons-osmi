@@ -10,7 +10,7 @@ module load anaconda
 conda activate OSMI
 pip install --user -r /project/bii_dsc_community/$USER/osmi/mlcommons-osmi/requirements-rivanna.txt
 
-cd /project/bii_dsc_community/$USER/osmi/osmibench/code/osmi-bench/model
+cd /project/bii_dsc_community/tma5gv/osmi/osmi-bench/model
 time python train.py small_lstm
 time python train.py medium_cnn
 time python train.py large_tcnn

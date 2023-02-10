@@ -16,12 +16,12 @@
 module load anaconda
 conda activate OSMI
 
-cd /project/bii_dsc_community/$USER/osmi/osmibench/code/osmi-bench/model
+cd /project/bii_dsc_community/tma5gv/osmi/osmi-bench/model
 time python train.py $MODE
 
 # where do you get the tensorflow-serving_latest.sif
 
-cd /project/bii_dsc_community/$USER/osmi/osmibench/code/osmi-bench/benchmark
+cd /project/bii_dsc_community/tma5gv/osmi/osmi-bench/benchmark
 pip install --user  -r mlcommons-osmi/../../../requirements-rivanna.txt
 singularity run --nv --home `pwd` ../serving_latest-gpu.sif tensorflow_model_server --port=8500 --rest_api_port=0 --model_config_file=models.conf >& log &
 
