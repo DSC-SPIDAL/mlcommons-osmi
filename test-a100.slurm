@@ -8,8 +8,8 @@
 #SBATCH --job-name=train-osmi
 #SBATCH --output=%u-%j.out
 #SBATCH --error=%u-%j.err
-## SBATCH --reservation=bi_fox_dgx
-## SBATCH --constraint=a100_80gb
+#SBATCH --reservation=bi_fox_dgx
+#SBATCH --constraint=a100_80gb
 
 ## SBATCH -c 4
 ## SBATCH --mem=32GB
@@ -17,7 +17,7 @@
 module load anaconda
 conda activate OSMI
 pip install --user -r /project/bii_dsc_community/$USER/osmi/mlcommons-osmi/requirements-rivanna.txt
-cd /project/bii_dsc_community/tma5gv/osmi/osmi-bench/benchmark
+cd /project/bii_dsc_community/$USER/osmi/osmi-bench/benchmark
 singularity run --nv --home `pwd` ../tensorflow-serving_latest.sif tensorflow_model_server --port=8500 --rest_api_port=0 --model_config_file=models.conf >& log &
 sleep 12 # check that tensorflow is running
 nvidia-smi
