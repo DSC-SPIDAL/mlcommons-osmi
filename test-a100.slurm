@@ -5,12 +5,11 @@
 #SBATCH --partition=bii-gpu
 #SBATCH --account=bii_dsc_community
 #SBATCH --gres=gpu:a100:1
-#SBATCH -q debug
 #SBATCH --job-name=train-osmi
 #SBATCH --output=%u-%j.out
 #SBATCH --error=%u-%j.err
-#SBATCH --reservation=bi_fox_dgx
-#SBATCH --constraint=a100_80gb
+## SBATCH --reservation=bi_fox_dgx
+## SBATCH --constraint=a100_80gb
 
 ## SBATCH -c 4
 ## SBATCH --mem=32GB
