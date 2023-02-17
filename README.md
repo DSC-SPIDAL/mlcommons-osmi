@@ -1,6 +1,6 @@
 # mlcommons-osmi
 
-Authors: Nate Kimball, Gregor von Laszewski
+Authors: Nate Kimball, Gregor von Laszewski, Wes Brewer
 
 ## Table of contents
 
