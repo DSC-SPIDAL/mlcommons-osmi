@@ -293,3 +293,9 @@ do this for all gpus with different ports
    
 4. Initial notes to be deleted, Nate: <https://docs.google.com/document/d/1luDAAatx6ZD_9-gM5HZZLcvglLuk_OqswzAS2n_5rNA>
 
+5. Proceedings of the CyberTraining REU2022, Gregor von Laszewski, Geoffrey Fox
+   <https://cloudmesh-community.github.io/pub/vonLaszewski-reu2022.pdf>
+
+6. W. Brewer et al., "Production Deployment of Machine-Learned Rotorcraft Surrogate Models on HPC," 2021 IEEE/ACM Workshop on Machine Learning in High Performance Computing Environments (MLHPC), St. Louis, MO, USA, 2021, pp. 21-32, doi: 10.1109/MLHPC54614.2021.00008.
+   <https://ieeexplore.ieee.org/document/9652868> #add preprint
+
